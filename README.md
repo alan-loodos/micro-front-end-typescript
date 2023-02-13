@@ -1,6 +1,6 @@
 cli-wizard Inspired and updated from a github repo.
 
-After saying 
+After doing 
 ```bash
   yarn generate-mfe
 ```
