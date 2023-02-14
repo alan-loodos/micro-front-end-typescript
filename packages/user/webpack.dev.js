@@ -18,6 +18,7 @@ module.exports = merge(common, {
     },
     port: 3002,
     historyApiFallback: true,
+    hot: true
   },
   plugins: [
     new MFLiveReloadPlugin({

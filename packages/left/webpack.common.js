@@ -1,18 +1,19 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin =
+  require("webpack").container.ModuleFederationPlugin;
 
-const federationConfig = require('./federation.config.json')
-const deps = require('./package.json').dependencies
+const federationConfig = require("./federation.config.json");
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   entry: {
-    app: './src/index',
+    app: "./src/index",
   },
   plugins: [
     new ModuleFederationPlugin({
       ...federationConfig,
-      filename: 'remoteEntry.js',
+      filename: "remoteEntry.js",
       shared: {
         ...deps,
         react: {
@@ -20,40 +21,43 @@ module.exports = {
           eager: true,
           requiredVersion: deps.react,
         },
-        'react-dom': {
+        "react-dom": {
           singleton: true,
           eager: true,
-          requiredVersion: deps['react-dom'],
-        },   
+          requiredVersion: deps["react-dom"],
+        },
       },
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: "./public/index.html",
+      favicon: "./public/favicon.ico",
+      filename: "./index.html",
+      manifest: "./public/manifest.json",
     }),
   ],
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
     clean: true,
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
-      src: path.resolve(__dirname, './src'),
+      src: path.resolve(__dirname, "./src"),
     },
   },
   module: {
     rules: [
       {
         test: /bootstrap\.tsx$/,
-        loader: 'bundle-loader',
+        loader: "bundle-loader",
         options: {
           lazy: true,
         },
       },
       {
         test: /\.tsx?$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
       },
       {
@@ -69,4 +73,4 @@ module.exports = {
       },
     ],
   },
-}
+};
