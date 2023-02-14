@@ -1,0 +1,12 @@
+.app-user {
+  margin: 1rem;
+  border: 1px dashed purple;
+  height: 100%;
+  &-label {
+    width: 3rem;
+    padding: .2rem;
+    background-color: purple;
+    color: white;
+    text-align: center;
+  }
+}
